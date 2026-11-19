@@ -31,29 +31,28 @@ def prim(graph):
                 return prim_helper(visited, frontier, tree)
         
     # pick first node as source arbitrarily
-    source = list(graph.keys())[0]
-    frontier = []
-    heappush(frontier, (0, source, source))
-    visited = set()  # store the visited nodes (don't need distance anymore)
-    tree = set()
-    prim_helper(visited, frontier, tree)
-    return tree
+    visited = set()
+    trees = []
+    for source in graph:
+        if source not in visited:
+            frontier = []
+            heappush(frontier, (0, source, source))
+            tr = set()
+            prim_helper(visited, frontier, tr)
+            trees.append(tr)
+    return trees
 
 def mst_from_points(points):
-    """
-    Return the minimum spanning tree for a list of points, using euclidean distance 
-    as the edge weight between each pair of points.
-    See test_mst_from_points.
-
-    Params:
-      points... a list of tuples (city_name, x-coord, y-coord)
-
-    Returns:
-      a list of edges of the form (weight, node1, node2) indicating the minimum spanning
-      tree connecting the cities in the input.
-    """
-    ###TODO
-    pass
+    graph = {name: [] for name, x, y in points}
+    for i in range(len(points)):
+        for j in range(i + 1, len(points)):
+            name1, x1, y1 = points[i]
+            name2, x2, y2 = points[j]
+            weight = sqrt((x2 - x1)**2 +(y2 - y1)**2)
+            graph[name1].append((name2, weight))
+            graph[name2].append((name1, weight))
+    trees = prim(graph)
+    return trees[0]   
 
 def euclidean_distance(p1, p2):
     return sqrt((p1[1] - p2[1])**2 + (p1[2] - p2[2])**2)
