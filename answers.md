@@ -16,4 +16,11 @@ With $k$ connected components and $n$ total vertices, the densest graph (and one
 
 The amount of edges on this graph is $E = \frac{(n-k-1)(n-k)}{2} = (n-k+1)^{2}$
 
+The loop checks every vertex, giving $O(n)$
+
+prim_helper goes through each vertex's adjacency list; undirected edges appear in two lists. So there are at most $n-k+1$ operations done in prim_helper, costing $log(n-k+1)$ 
+
+So, the total worst-case cost is $W(n,k) = O(n + (n-k+1)log(n-k+1))$
+
+
 - **4) (2 pts)** What is the work of your full algorithm in the previous answer?
