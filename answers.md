@@ -24,3 +24,11 @@ So, the total worst-case cost is $W(n,k) = O(n + (n-k+1)log(n-k+1))$
 
 
 - **4) (2 pts)** What is the work of your full algorithm in the previous answer?
+
+Building the edges loops through $n$ points twice; $O(n^{2})$
+
+The worst case for the prim calculation is $k=1$, where the work is $O(n^{2}logn)$
+
+Returning tree cost $O(1)$
+
+Total work is $W(n) = O(n^{2} + n^{2}logn + 1) = O(n^{2}logn)$
